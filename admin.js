@@ -450,7 +450,11 @@ function updatePrice() {
 
   renderLeaderboards();
   pushAdminNotification(`Admin updated price for ${symbol} to ${price}`);
-  alert(`${symbol} updated to ${price}`);
+  alert(`✅ ${symbol} updated to ${price}\n\nThe main page will auto-update on next refresh!`);
+  
+  // Clear the inputs
+  document.getElementById("symbol-select").value = "";
+  document.getElementById("price").value = "";
 }
 
 function marketCrash() {

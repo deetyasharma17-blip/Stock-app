@@ -87,6 +87,7 @@ let pendingBuy = null;
 let stockChart = null;
 let portfolioChart = null;
 let refreshTimer = null;
+let currentAcademyQuiz = null;
 
 async function loadAssets() {
   try {
@@ -926,15 +927,14 @@ const ACADEMY_LEVELS = [
     xpRequired: 0,
     description: "Understand cash flow, savings, emergency funds, and compounding before investing.",
     lesson: "Budgeting and saving come before investing. A strong foundation helps you handle risk and protect long-term gains.",
-    question: "Which habit usually helps you build financial stability before investing?",
-    options: [
-      "Following the market every day without a plan",
-      "Building an emergency fund and budgeting wisely",
-      "Buying the hottest stock immediately",
-      "Ignoring all expenses"
-    ],
-    correctIndex: 1,
-    xpReward: 50
+    xpReward: 50,
+    questions: [
+      { id: 1, question: "What is cash flow?", options: ["The amount of money you own", "Money moving in and out of your finances", "The price of a stock", "Money invested in a company"], correctIndex: 1 },
+      { id: 2, question: "What is the main purpose of an emergency fund?", options: ["To buy stocks quickly", "To pay for unexpected expenses", "To increase your credit score", "To avoid paying taxes"], correctIndex: 1 },
+      { id: 3, question: "Which is generally the best description of saving?", options: ["Setting aside money for future needs or goals", "Buying expensive items", "Borrowing money from a bank", "Investing exclusively in stocks"], correctIndex: 0 },
+      { id: 4, question: "What does compound growth mean?", options: ["Your returns can themselves generate additional returns", "Your money stays exactly the same", "You lose money every year", "You only earn interest once"], correctIndex: 0 },
+      { id: 5, question: "Which person is generally in the strongest financial position?", options: ["Someone with no savings but many investments", "Someone who has an emergency fund and manages expenses responsibly", "Someone who spends all their income", "Someone who borrows money for everyday expenses"], correctIndex: 1 }
+    ]
   },
   {
     id: 2,
@@ -942,15 +942,14 @@ const ACADEMY_LEVELS = [
     xpRequired: 100,
     description: "Learn what a stock is, why prices move, and how ownership works.",
     lesson: "A stock represents ownership in a company. When prices move, it usually reflects expectations about profit, growth, and risk.",
-    question: "If you own 10 shares of a company, what do you own?",
-    options: [
-      "A small ownership stake in the company",
-      "The company's debt",
-      "Only the company logo",
-      "A short-term loan to management"
-    ],
-    correctIndex: 0,
-    xpReward: 60
+    xpReward: 60,
+    questions: [
+      { id: 1, question: "What does owning a stock generally represent?", options: ["A loan to the government", "Partial ownership in a company", "A guaranteed return", "A bank deposit"], correctIndex: 1 },
+      { id: 2, question: "Why might a stock's price rise?", options: ["More investors want to buy it", "The company stopped operating", "Nobody is interested in it", "Prices can only rise because of dividends"], correctIndex: 0 },
+      { id: 3, question: "What is a dividend?", options: ["A company's debt", "A payment some companies make to shareholders", "A stock exchange", "A government tax"], correctIndex: 1 },
+      { id: 4, question: "What does a shareholder own?", options: ["The company's entire bank account", "A portion of the company's equity", "The company's employees", "A guaranteed percentage of its profits"], correctIndex: 1 },
+      { id: 5, question: "Which statement is TRUE about stock prices?", options: ["They always increase over time", "They can rise or fall based on many factors", "They are fixed by the company forever", "They cannot change during a trading day"], correctIndex: 1 }
+    ]
   },
   {
     id: 3,
@@ -958,15 +957,14 @@ const ACADEMY_LEVELS = [
     xpRequired: 200,
     description: "Read revenue, expenses, profit margins, assets, and liabilities.",
     lesson: "Financial statements show how a business performs and how it finances itself. They help investors judge quality and risk.",
-    question: "What does a profit margin show?",
-    options: [
-      "How much of revenue turns into profit",
-      "How many employees a company has",
-      "The company's stock price",
-      "How much debt the company owes"
-    ],
-    correctIndex: 0,
-    xpReward: 80
+    xpReward: 80,
+    questions: [
+      { id: 1, question: "What is revenue?", options: ["Money a company earns from its business activities", "Money the company owes", "The company's stock price", "The company's total debt"], correctIndex: 0 },
+      { id: 2, question: "What is profit?", options: ["Revenue minus relevant expenses", "Revenue plus expenses", "Total assets", "Total liabilities"], correctIndex: 0 },
+      { id: 3, question: "Which of these is an asset?", options: ["A company loan", "Money owed to suppliers", "Cash owned by the company", "A company's unpaid bill"], correctIndex: 2 },
+      { id: 4, question: "Which of these is a liability?", options: ["Cash", "Inventory", "Equipment", "Debt owed by the company"], correctIndex: 3 },
+      { id: 5, question: "A company has ₹10 lakh in revenue and ₹7 lakh in expenses. What is its profit?", options: ["₹3 lakh", "₹7 lakh", "₹10 lakh", "₹17 lakh"], correctIndex: 0 }
+    ]
   },
   {
     id: 4,
@@ -982,7 +980,14 @@ const ACADEMY_LEVELS = [
       "To count company employees"
     ],
     correctIndex: 0,
-    xpReward: 90
+    xpReward: 90,
+    questions: [
+      { id: 1, question: "What does valuation attempt to determine?", options: ["How popular a company is", "What a company or stock may be worth", "How many employees a company has", "How much cash investors have"], correctIndex: 1 },
+      { id: 2, question: "What does the P/E ratio compare?", options: ["Profit and expenses", "Share price and earnings per share", "Assets and liabilities", "Revenue and cash flow"], correctIndex: 1 },
+      { id: 3, question: "If two companies have similar earnings but one has a much higher P/E ratio, what might that suggest?", options: ["Investors are paying more for each unit of its earnings", "The company has no earnings", "Its stock price cannot fall", "The companies have identical valuations"], correctIndex: 0 },
+      { id: 4, question: "Why shouldn't investors rely on a single valuation metric?", options: ["Every metric is always incorrect", "Different metrics provide different perspectives", "Valuation doesn't matter", "Stock prices never change"], correctIndex: 1 },
+      { id: 5, question: "A stock trading below an estimate of its intrinsic value might be described as:", options: ["Potentially undervalued", "Guaranteed to rise", "Overvalued", "Risk-free"], correctIndex: 0 }
+    ]
   },
   {
     id: 5,
@@ -990,15 +995,14 @@ const ACADEMY_LEVELS = [
     xpRequired: 500,
     description: "Build diversification, balance risk, and create a more resilient portfolio.",
     lesson: "A good portfolio spreads risk across sectors and asset types, instead of betting everything on one stock.",
-    question: "Why is diversification useful?",
-    options: [
-      "It reduces the impact of any single bad investment",
-      "It guarantees profit",
-      "It removes all market risk",
-      "It always lowers taxes"
-    ],
-    correctIndex: 0,
-    xpReward: 120
+    xpReward: 120,
+    questions: [
+      { id: 1, question: "What is diversification?", options: ["Putting all your money into one company", "Spreading investments across different assets or companies", "Buying only technology stocks", "Selling everything when prices fall"], correctIndex: 1 },
+      { id: 2, question: "Why can diversification reduce risk?", options: ["Different investments may not all perform the same way at the same time", "It guarantees profits", "It eliminates all market risk", "It guarantees that prices will rise"], correctIndex: 0 },
+      { id: 3, question: "What is asset allocation?", options: ["Deciding how to distribute investments among different asset classes", "Choosing a company's CEO", "Calculating revenue", "Predicting tomorrow's stock price"], correctIndex: 0 },
+      { id: 4, question: "What does rebalancing a portfolio mean?", options: ["Completely selling your portfolio", "Adjusting investments to bring the portfolio back toward its intended allocation", "Buying only the best-performing stock", "Avoiding all investments"], correctIndex: 1 },
+      { id: 5, question: "Which portfolio is generally more diversified?", options: ["100% invested in one company", "100% invested in one industry", "Investments spread across different assets and sectors", "100% invested in one stock"], correctIndex: 2 }
+    ]
   }
 ];
 
@@ -1006,16 +1010,18 @@ function getAcademyState() {
   const defaultState = {
     xp: 0,
     completed: [],
-    unlocked: [1]
+    unlocked: [1],
+    maxXpReached: false
   };
 
   try {
-    const stored = JSON.parse(localStorage.getItem("academyState") || "null");
+    const stored = JSON.parse(localStorage.getItem(getStorageKey("academyState")) || "null");
     if (!stored || typeof stored !== "object") return defaultState;
     return {
       xp: Number(stored.xp) || 0,
       completed: Array.isArray(stored.completed) ? stored.completed : [],
-      unlocked: Array.isArray(stored.unlocked) ? stored.unlocked : [1]
+      unlocked: Array.isArray(stored.unlocked) ? stored.unlocked : [1],
+      maxXpReached: Boolean(stored.maxXpReached) || false
     };
   } catch (error) {
     return defaultState;
@@ -1023,10 +1029,11 @@ function getAcademyState() {
 }
 
 function saveAcademyState(state) {
-  localStorage.setItem("academyState", JSON.stringify(state));
+  localStorage.setItem(getStorageKey("academyState"), JSON.stringify(state));
 }
 
 function getAcademyLevelName(xp) {
+  if (xp >= 1000) return "Master Investor 👑";
   if (xp >= 500) return "Investor";
   if (xp >= 250) return "Market Explorer";
   if (xp >= 100) return "Learner";
@@ -1035,7 +1042,7 @@ function getAcademyLevelName(xp) {
 
 function openAcademyQuiz(levelId) {
   const level = ACADEMY_LEVELS.find(item => item.id === levelId);
-  if (!level) return;
+  if (!level || !level.questions || level.questions.length === 0) return;
 
   const modal = document.getElementById("academy-quiz-modal");
   const lessonEl = document.getElementById("academy-lesson-copy");
@@ -1045,12 +1052,25 @@ function openAcademyQuiz(levelId) {
 
   if (!modal || !lessonEl || !questionEl || !optionsEl || !submitBtn) return;
 
-  currentAcademyQuiz = level;
-  lessonEl.innerText = `Lesson: ${level.lesson}`;
-  questionEl.innerText = `${level.name}: ${level.question}`;
-  optionsEl.innerHTML = "";
+  // Initialize quiz state
+  if (!currentAcademyQuiz || currentAcademyQuiz.id !== levelId) {
+    currentAcademyQuiz = {
+      ...level,
+      currentQuestionIndex: 0,
+      answers: [],
+      selectedIndex: null
+    };
+  }
 
-  level.options.forEach((option, index) => {
+  const currentQuestion = level.questions[currentAcademyQuiz.currentQuestionIndex];
+  if (!currentQuestion) return;
+  
+  lessonEl.innerText = `Lesson: ${level.lesson}`;
+  questionEl.innerText = `Question ${currentAcademyQuiz.currentQuestionIndex + 1}/${level.questions.length}: ${currentQuestion.question}`;
+  optionsEl.innerHTML = "";
+  currentAcademyQuiz.selectedIndex = null;
+
+  currentQuestion.options.forEach((option, index) => {
     const optionButton = document.createElement("button");
     optionButton.className = "academy-option";
     optionButton.type = "button";
@@ -1063,36 +1083,73 @@ function openAcademyQuiz(levelId) {
     optionsEl.appendChild(optionButton);
   });
 
+  submitBtn.innerText = currentAcademyQuiz.currentQuestionIndex === level.questions.length - 1 ? "Complete Level" : "Next Question";
   submitBtn.onclick = () => {
-    const selectedIndex = currentAcademyQuiz.selectedIndex;
-    const selectedOption = typeof selectedIndex === "number" ? level.options[selectedIndex] : null;
-    if (selectedIndex === undefined || selectedIndex === null) {
+    if (currentAcademyQuiz.selectedIndex === null) {
       alert("Select an answer first.");
       return;
     }
 
-    const answerState = getAcademyState();
-    if (selectedIndex === level.correctIndex) {
-      const xpGain = level.xpReward;
-      answerState.xp += xpGain;
-      if (!answerState.completed.includes(level.id)) answerState.completed.push(level.id);
-      const nextUnlocked = Math.max(...answerState.unlocked, level.id + 1);
-      answerState.unlocked = Array.from(new Set([...answerState.unlocked, nextUnlocked].filter(item => item <= ACADEMY_LEVELS.length)));
-      saveAcademyState(answerState);
-      alert(`Correct! +${xpGain} XP`);
-      renderAcademy();
+    currentAcademyQuiz.answers.push({
+      questionIndex: currentAcademyQuiz.currentQuestionIndex,
+      selectedIndex: currentAcademyQuiz.selectedIndex,
+      correct: currentAcademyQuiz.selectedIndex === currentQuestion.correctIndex
+    });
+
+    if (currentAcademyQuiz.selectedIndex === currentQuestion.correctIndex) {
+      if (currentAcademyQuiz.currentQuestionIndex < level.questions.length - 1) {
+        currentAcademyQuiz.currentQuestionIndex++;
+        openAcademyQuiz(levelId);
+      } else {
+        const correctCount = currentAcademyQuiz.answers.filter(a => a.correct).length;
+        const totalQuestions = level.questions.length;
+        const allCorrect = correctCount === totalQuestions;
+
+        const answerState = getAcademyState();
+        if (allCorrect) {
+          const xpGain = level.xpReward;
+          const previousXp = answerState.xp;
+          answerState.xp += xpGain;
+          if (!answerState.completed.includes(level.id)) answerState.completed.push(level.id);
+          const nextUnlocked = Math.max(...answerState.unlocked, level.id + 1);
+          answerState.unlocked = Array.from(new Set([...answerState.unlocked, nextUnlocked].filter(item => item <= ACADEMY_LEVELS.length)));
+          
+          // Check if reached 1000 XP milestone
+          if (previousXp < 1000 && answerState.xp >= 1000 && !answerState.maxXpReached) {
+            answerState.maxXpReached = true;
+            saveAcademyState(answerState);
+            alert(`🏆 MASTER INVESTOR UNLOCKED! 🏆\n\nYou have mastered StockN Academy!\n\nTotal XP: ${answerState.xp}\nLessons Completed: ${answerState.completed.length}\n\nYou are now a Master Investor! 👑`);
+          } else {
+            saveAcademyState(answerState);
+            alert(`Excellent! You got ${correctCount}/${totalQuestions} correct. +${xpGain} XP 🎉`);
+          }
+        } else {
+          alert(`You got ${correctCount}/${totalQuestions} correct. Try again to master this level!`);
+        }
+        renderAcademy();
+        closeAcademyQuiz();
+      }
     } else {
-      alert(`Not quite. The correct answer is: ${level.options[level.correctIndex]}`);
+      alert(`Not quite. The correct answer is: ${currentQuestion.options[currentQuestion.correctIndex]}\n\nTry the next question!`);
+      if (currentAcademyQuiz.currentQuestionIndex < level.questions.length - 1) {
+        currentAcademyQuiz.currentQuestionIndex++;
+        openAcademyQuiz(levelId);
+      } else {
+        const correctCount = currentAcademyQuiz.answers.filter(a => a.correct).length;
+        const totalQuestions = level.questions.length;
+        alert(`Level complete! You got ${correctCount}/${totalQuestions} correct. Review the lesson and try again!`);
+        renderAcademy();
+        closeAcademyQuiz();
+      }
     }
-    closeAcademyQuiz();
   };
 
-  modal.classList.remove("hidden");
+  modal.classList.add("visible");
 }
 
 function closeAcademyQuiz() {
   const modal = document.getElementById("academy-quiz-modal");
-  if (modal) modal.classList.add("hidden");
+  if (modal) modal.classList.remove("visible");
   currentAcademyQuiz = null;
 }
 
@@ -1428,3 +1485,4 @@ window.addEventListener("storage", event => {
     renderHistory();
   }
 });
+
