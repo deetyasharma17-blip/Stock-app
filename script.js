@@ -4499,5 +4499,5 @@ window.marketBoom = marketBoom;
 <script type="module" src="script.js"></script>
 
     }
-  }
-git add .; git commit -m "Fix buy sell functions"; git push
+  
+}
