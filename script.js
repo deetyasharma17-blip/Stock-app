@@ -4491,6 +4491,8 @@ window.addEventListener(
       loadStockPrices();
       updateUI();
       renderHistory();
+      window.buyAsset = buyAsset;
+window.sellAsset = sellAsset;
     }
   }
 );
