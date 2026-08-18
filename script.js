@@ -1,3 +1,22 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+import {
+  getDatabase,
+  ref,
+  onValue
+} from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD9cUTDboqw3hENshHYInulAdMfO4HXQ0U",
+  authDomain: "stockapp-8cdd9.firebaseapp.com",
+  databaseURL: "https://stockapp-8cdd9-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "stockapp-8cdd9",
+  storageBucket: "stockapp-8cdd9.firebasestorage.app",
+  messagingSenderId: "243094755136",
+  appId: "1:243094755136:web:0e8aa6f0de22f12b5f0ca5"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const database = getDatabase(firebaseApp);
 const API_KEY = "JLPRAJLN9C8Y8UVN";
 const DEFAULT_STOCKS = [
   { label: "AAPL", symbol: "AAPL" },
@@ -77,6 +96,18 @@ let portfolio = JSON.parse(localStorage.getItem(getStorageKey("portfolio")) || "
 let transactions = JSON.parse(localStorage.getItem(getStorageKey("transactions")) || "[]");
 let portfolioHistory = JSON.parse(localStorage.getItem(getStorageKey("portfolioHistory")) || "[]");
 let manualPrices = JSON.parse(localStorage.getItem("manualPrices") || "{}");
+onValue(ref(database, "manualPrices"), (snapshot) => {
+  const firebasePrices = snapshot.val();
+
+  if (firebasePrices && typeof firebasePrices === "object") {
+    manualPrices = firebasePrices;
+    localStorage.setItem("manualPrices", JSON.stringify(manualPrices));
+
+    if (typeof loadStockPrices === "function") {
+      loadStockPrices();
+    }
+  }
+});
 let STOCKS = [...DEFAULT_STOCKS];
 let currentPrices = {};
 let ASSETS = [];
@@ -181,7 +212,7 @@ function renderAssetSearchResults() {
           <button onclick="buyAsset('${asset.symbol}')">Buy</button>
         </div>
       `;
-    });
+    });node --version
     html += `</div></div>`;
   });
 

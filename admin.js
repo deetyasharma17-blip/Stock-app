@@ -1,3 +1,23 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+import {
+  getDatabase,
+  ref,
+  set,
+  get
+} from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyD9cUTDboqw3hENshHYInulAdMfO4HXQ0U",
+  authDomain: "stockapp-8cdd9.firebaseapp.com",
+  databaseURL: "https://stockapp-8cdd9-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "stockapp-8cdd9",
+  storageBucket: "stockapp-8cdd9.firebasestorage.app",
+  messagingSenderId: "243094755136",
+  appId: "1:243094755136:web:0e8aa6f0de22f12b5f0ca5"
+};
+
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
 const exchangeMap = {
   LSE: ".L",
   LS: ".L",
@@ -43,9 +63,11 @@ const DEFAULT_ADMIN_ASSETS = [
   { symbol: "ARKK", name: "ARK Innovation ETF", type: "etf", sector: "Technology", price: 28.19 }
 ];
 
-function save() {
+async function save() {
   localStorage.setItem("manualPrices", JSON.stringify(manualPrices));
   localStorage.setItem("manualPricesUpdate", Date.now().toString());
+
+  await set(ref(database, "manualPrices"), manualPrices);
 }
 
 function getStorageKey(userEmail, key) {
@@ -416,6 +438,7 @@ window.addEventListener("storage", event => {
     renderAdminNotifications();
     populateDeletedAccounts();
   }
+
 });
 
 function normalizeSymbol(input) {
@@ -482,3 +505,6 @@ function marketBoom() {
   save();
   alert("Market boomed 🔺");
 }
+window.updatePrice = updatePrice;
+window.marketCrash = marketCrash;
+window.marketBoom = marketBoom;
