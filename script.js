@@ -4492,7 +4492,7 @@ window.addEventListener(
       updateUI();
       renderHistory();
       window.buyAsset = buyAsset;
-window.sellAsset = sellAsset;
+    window.sellAsset = sellAsset;
     }
   }
 );

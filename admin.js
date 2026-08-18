@@ -505,6 +505,9 @@ function marketBoom() {
   save();
   alert("Market boomed 🔺");
 }
+window.buyAsset = buyAsset;
+window.sellAsset = sellAsset;
 window.updatePrice = updatePrice;
 window.marketCrash = marketCrash;
 window.marketBoom = marketBoom;
+
