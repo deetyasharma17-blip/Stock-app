@@ -1,0 +1,20 @@
+[
+  { "symbol": "AAPL", "name": "Apple Inc.", "type": "stock", "sector": "Technology", "price": 173.22 },
+  { "symbol": "MSFT", "name": "Microsoft Corp.", "type": "stock", "sector": "Technology", "price": 324.80 },
+  { "symbol": "GOOGL", "name": "Alphabet Inc.", "type": "stock", "sector": "Technology", "price": 137.40 },
+  { "symbol": "JPM", "name": "JPMorgan Chase & Co.", "type": "stock", "sector": "Banking", "price": 156.60 },
+  { "symbol": "HDFC", "name": "HDFC Bank Ltd.", "type": "stock", "sector": "Banking", "price": 1084.50 },
+  { "symbol": "BP", "name": "BP plc", "type": "stock", "sector": "Energy", "price": 29.50 },
+  { "symbol": "XOM", "name": "Exxon Mobil Corp.", "type": "stock", "sector": "Energy", "price": 118.70 },
+  { "symbol": "JNJ", "name": "Johnson & Johnson", "type": "stock", "sector": "Healthcare", "price": 161.25 },
+  { "symbol": "PFE", "name": "Pfizer Inc.", "type": "stock", "sector": "Healthcare", "price": 40.35 },
+  { "symbol": "VTI", "name": "Vanguard Total Stock Market ETF", "type": "etf", "sector": "Index Funds", "price": 211.18 },
+  { "symbol": "QQQ", "name": "Invesco QQQ Trust", "type": "etf", "sector": "Technology", "price": 357.67 },
+  { "symbol": "IEMG", "name": "iShares Core MSCI Emerging Markets ETF", "type": "etf", "sector": "Others", "price": 54.12 },
+  { "symbol": "VFIAX", "name": "Vanguard 500 Index Fund Admiral Shares", "type": "mutualfund", "sector": "Index Funds", "price": 382.90 },
+  { "symbol": "VTSAX", "name": "Vanguard Total Stock Market Index Fund Admiral Shares", "type": "mutualfund", "sector": "Index Funds", "price": 112.68 },
+  { "symbol": "FDGRX", "name": "Fidelity Growth Company Fund", "type": "mutualfund", "sector": "Technology", "price": 45.84 },
+  { "symbol": "ARKK", "name": "ARK Innovation ETF", "type": "etf", "sector": "Technology", "price": 28.19 },
+  { "symbol": "ICICIBANK", "name": "ICICI Bank Ltd.", "type": "stock", "sector": "Banking", "price": 1066.90 },
+  { "symbol": "RELIANCE", "name": "Reliance Industries Ltd.", "type": "stock", "sector": "Energy", "price": 2853.20 }
+]

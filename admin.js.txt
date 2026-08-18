@@ -1,0 +1,35 @@
+let manualPrices = JSON.parse(localStorage.getItem("manualPrices") || "{}");
+
+function save() {
+  localStorage.setItem("manualPrices", JSON.stringify(manualPrices));
+}
+
+function updatePrice() {
+  const symbol = document.getElementById("symbol").value.toUpperCase();
+  const price = parseFloat(document.getElementById("price").value);
+
+  if (!symbol || isNaN(price)) {
+    alert("Enter valid data");
+    return;
+  }
+
+  manualPrices[symbol] = price;
+  save();
+  alert(`${symbol} updated to ${price}`);
+}
+
+function marketCrash() {
+  for (let key in manualPrices) {
+    manualPrices[key] *= 0.9;
+  }
+  save();
+  alert("Market crashed 🔻");
+}
+
+function marketBoom() {
+  for (let key in manualPrices) {
+    manualPrices[key] *= 1.1;
+  }
+  save();
+  alert("Market boomed 🔺");
+}
