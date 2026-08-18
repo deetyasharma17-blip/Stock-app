@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🧑‍💼 Admin Control Panel</h1>
+<p><a class="button" href="index.html">Go to Player Page</a></p>
+<p class="login-info">This page is now open access and does not require signing in.</p>
+
+<h2>Update Stock Price</h2>
+
+<select id="symbol-select">
+  <option value="">Select symbol</option>
+</select>
+<input id="price" placeholder="New price">
+
+<button onclick="updatePrice()">Update Price</button>
+
+<hr>
+
+<h2>User Management</h2>
+<p>Select a user and either reset their game or delete their account entirely.</p>
+<select id="user-select"></select>
+<button onclick="resetUserGame()">Reset Selected User</button>
+<button onclick="deleteUserAccount()">Delete Selected User</button>
+<div id="admin-status" class="login-info"></div>
+
+<h2>Deleted Accounts</h2>
+<p>Select a deleted account to restore it with all historical trading data.</p>
+<select id="deleted-account-select"></select>
+<button onclick="restoreDeletedAccount()">Restore Deleted Account</button>
+<div id="deleted-status" class="login-info"></div>
+
+<h2>Leaderboards</h2>
+<p>Top 10 users ranked by net worth and profit percentage.</p>
+<div class="leaderboard-grid">
+  <div class="leaderboard-card">
+    <h3>Top 10 by Net Worth</h3>
+    <div id="leaderboard-networth"></div>
+  </div>
+  <div class="leaderboard-card">
+    <h3>Top 10 by Profit %</h3>
+    <div id="leaderboard-profit"></div>
+  </div>
+</div>
+
+<h2>Admin Notifications</h2>
+<div id="admin-notifications" class="leaderboard-card"></div>
+
+<hr>
+
+<button onclick="marketCrash()">📉 Market Crash (-10%)</button>
+<button onclick="marketBoom()">📈 Market Boom (+10%)</button>
+
+<script src="admin.js"></script>
+
+</body>
+</html>

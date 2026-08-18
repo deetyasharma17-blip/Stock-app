@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Stock Simulator</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<script src="auth.js"></script>
+<script>requireLogin();</script>
+
+<h1>📈 Stock Simulator</h1>
+<div id="logged-in-as" class="login-info"></div>
+<div id="balance">Balance: ₹10000</div>
+<div class="summary-panel">
+  <div class="summary-card">
+    <span>Portfolio Value</span>
+    <strong id="equity">₹0.00</strong>
+  </div>
+  <div class="summary-card">
+    <span>Total P/L</span>
+    <strong id="pl">₹0.00</strong>
+  </div>
+</div>
+
+<section class="history-panel">
+  <div class="panel-header">
+    <h2>Investing Basics</h2>
+  </div>
+  <div class="education-grid">
+    <div class="education-card">
+      <h3>What is a stock?</h3>
+      <p>A stock represents ownership in a company. When you buy a stock, you own a small part of that company.</p>
+    </div>
+    <div class="education-card">
+      <h3>What is profit/loss?</h3>
+      <p>Profit happens when the current price is higher than your buying price. Loss happens when it is lower.</p>
+    </div>
+    <div class="education-card">
+      <h3>What is risk?</h3>
+      <p>Stock prices can go up and down. Investing all your money in one stock is risky.</p>
+    </div>
+    <div class="education-card">
+      <h3>Basic investing tips</h3>
+      <p>Diversify your investments instead of putting all your money into one stock. Keep learning and invest for the long term.</p>
+    </div>
+  </div>
+</section>
+
+<section class="health-panel card-panel">
+  <div class="panel-header">
+    <h2>Portfolio Health Score ❤️</h2>
+  </div>
+  <div class="health-score-row">
+    <div id="portfolio-health-score" class="health-score">0/100</div>
+    <div id="portfolio-health-reason" class="health-reason">Add a few investments to see your health score.</div>
+  </div>
+</section>
+
+<div class="button-panel">
+  <button id="refresh">Refresh Prices</button>
+  <button id="delete-account">Delete Account</button>
+  <button id="logout" onclick="logout()">Logout</button>
+</div>
+
+<div id="suggestion-panel" class="card-panel"></div>
+
+<div class="search-panel">
+  <div class="search-input">
+    <input id="search" type="text" placeholder="Search symbols, names, sectors, or types">
+    <button id="search-button">Search</button>
+  </div>
+  <div class="filter-buttons">
+    <button class="asset-filter active" data-type="all">All</button>
+    <button class="asset-filter" data-type="stock">Stocks</button>
+    <button class="asset-filter" data-type="etf">ETFs</button>
+    <button class="asset-filter" data-type="mutualfund">Mutual Funds</button>
+  </div>
+  <div id="search-message" class="search-message">Search among stocks, ETFs, and mutual funds.</div>
+  <div id="asset-results" class="asset-results"></div>
+  <div id="last-update" class="search-note">Last update: --</div>
+</div>
+
+<h2>Market</h2>
+<div id="stocks">Loading...</div>
+
+<h2>Chart</h2>
+<canvas id="chart" width="400" height="200"></canvas>
+<div id="chart-source" class="chart-source"></div>
+
+<h2>Portfolio</h2>
+<div id="portfolio"></div>
+
+<h2>Portfolio History</h2>
+<canvas id="portfolio-chart" width="400" height="200"></canvas>
+
+<h2>Transaction History</h2>
+<div id="history"></div>
+
+<section class="academy-panel card-panel">
+  <div class="panel-header">
+    <h2>StockN Academy</h2>
+  </div>
+  <div class="academy-summary-row">
+    <div>
+      <div class="academy-level-label">Your Level</div>
+      <strong id="academy-level-name">Beginner</strong>
+    </div>
+    <div>
+      <div class="academy-level-label">XP</div>
+      <strong id="academy-xp">0 / 1000</strong>
+    </div>
+  </div>
+  <div id="academy-steps" class="academy-steps"></div>
+  <div class="academy-progress">
+    <div class="academy-progress-bar"><span id="academy-progress-fill" style="width: 0%"></span></div>
+    <div id="academy-meta" class="academy-meta">XP: 0 • Badges: 0 • Certificates: 0</div>
+  </div>
+</section>
+
+<div id="academy-quiz-modal" class="modal hidden">
+  <div class="modal-backdrop" onclick="closeAcademyQuiz()"></div>
+  <div class="modal-content academy-quiz-content" onclick="event.stopPropagation()">
+    <div class="modal-title">StockN Academy</div>
+    <div id="academy-lesson-copy" class="academy-lesson-copy"></div>
+    <div id="academy-quiz-question" class="academy-quiz-question"></div>
+    <div id="academy-quiz-options" class="academy-quiz-options"></div>
+    <div class="modal-actions">
+      <button id="academy-quiz-submit" class="button">Check Answer</button>
+      <button onclick="closeAcademyQuiz()" class="button button-disabled">Close</button>
+    </div>
+  </div>
+</div>
+
+<div id="buy-modal" class="modal hidden">
+  <div class="modal-backdrop" onclick="hideBuyModal()"></div>
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <p id="buy-modal-text">Buy</p>
+    <div class="modal-body">
+      <label for="buy-quantity">Quantity:</label>
+      <input id="buy-quantity" type="number" min="1" step="1" value="1">
+    </div>
+    <div class="modal-actions">
+      <button id="buy-confirm-btn" class="button">Confirm</button>
+      <button onclick="hideBuyModal()" class="button button-disabled">Cancel</button>
+    </div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
